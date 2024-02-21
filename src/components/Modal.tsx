@@ -1,17 +1,19 @@
-import { Fragment } from 'react'
+import { Fragment, useContext } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
+import { MatchGameContext } from './MatchGame';
 
 interface props {
-  isOpen: boolean,
   message: string,
   closeText: string,
   dialogText: string,
   onClose: () => void,
 }
 
-export default function Modal({ dialogText, message, closeText, isOpen, onClose  }: props) {
+export default function Modal({ dialogText, message, closeText, onClose  }: props) {
+  const { gameEnded } = useContext(MatchGameContext)!;
+
   return (
-    <Transition.Root show={isOpen} as={Fragment}>
+    <Transition.Root show={gameEnded} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={onClose}>
         <Transition.Child
           as={Fragment}
